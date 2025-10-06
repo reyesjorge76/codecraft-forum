@@ -1,3 +1,7 @@
+Final Project 4 for full stack developer bootcamp through CMU.
+
+Code Location link: https://github.com/reyesjorge76/codecraft-forum
+
 📘 CodeCraft Forum
 A 3-Tier web application where users can register, log in, and ask or answer questions about programming topics like JavaScript, Python, and React.
 
