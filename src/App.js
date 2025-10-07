@@ -1,11 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
-import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Home from "./Home";
-
 function App() {
   // State variables
   const [topics, setTopics] = useState([]);
@@ -31,28 +25,28 @@ function App() {
   const [loggedInUser, setLoggedInUser] = useState(null);
   // For toggling between login and register forms.
   const [showRegister, setShowRegister] = useState(false);
-  // For managing replies.
-  const [replyBodies, setReplyBodies] = useState({});
-  // For managing replies state.
-  const [replies, setReplies] = useState({});
-
-  // Load topics on component mount.
+  // Load topics and logged-in user on component mount.
   useEffect(() => {
-    const savedUser = localStorage.getItem("user");
-    if (savedUser) setLoggedInUser(savedUser);
-  }, []);
-
-  // Load topics on component mount.
-  useEffect(() => {
+    // Load topics
     axios
       .get("http://localhost:3001/api/topics")
       .then((res) => setTopics(res.data))
       .catch((err) => console.error("❌ Error loading topics:", err));
+
+    // Load logged-in user from localStorage
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setLoggedInUser(storedUser);
+    }
   }, []);
 
   // Handle topic selection and load questions for the selected topic.
   const handleTopicClick = (id) => {
     setSelectedTopic(id);
+    if (id === null) {
+      setQuestions([]);
+      return;
+    }
     axios
       .get("http://localhost:3001/api/questions?topic_id=" + id)
       .then((res) => setQuestions(res.data))
@@ -324,18 +318,20 @@ function App() {
         </div>
       )}
 
-      {/* Show questions and submission form for selected topic */}
-      <h2 style={{ marginTop: "2rem" }}>Questions</h2>
-      {questions.map((q) => (
-        <div key={q.id} style={{ marginBottom: "1rem" }}>
-          <h3>{q.title}</h3>
-          <p>{q.body}</p>
-          <small>
-            Posted by <strong>{q.username}</strong> on{" "}
-            {new Date(q.timestamp).toLocaleString()}
-          </small>
-        </div>
-      ))}
+      {/* Show questions for selected topic */}
+      {selectedTopic &&
+        questions.map((q) => (
+          <div key={q.id} style={{ marginBottom: "1rem" }}>
+            <h3>{q.title}</h3>
+            <p>{q.body}</p>
+            <small>
+              Posted by <strong>{q.username}</strong> on{" "}
+              {q.timestamp
+                ? new Date(q.timestamp).toLocaleString()
+                : "Unknown date"}
+            </small>
+          </div>
+        ))}
     </div>
   );
 }
