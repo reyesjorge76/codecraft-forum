@@ -6,8 +6,6 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Login";
 import Home from "./Home";
 
-// Remove misplaced Routes block from here
-
 function App() {
   // State variables
   const [topics, setTopics] = useState([]);
