@@ -1,10 +1,13 @@
 {
   "files": {
-    "main.js": "/codecraft-forum/static/js/main.781e4459.js",
+    "main.css": "/codecraft-forum/static/css/main.e6c13ad2.css",
+    "main.js": "/codecraft-forum/static/js/main.20bacfce.js",
     "index.html": "/codecraft-forum/index.html",
-    "main.781e4459.js.map": "/codecraft-forum/static/js/main.781e4459.js.map"
+    "main.e6c13ad2.css.map": "/codecraft-forum/static/css/main.e6c13ad2.css.map",
+    "main.20bacfce.js.map": "/codecraft-forum/static/js/main.20bacfce.js.map"
   },
   "entrypoints": [
-    "static/js/main.781e4459.js"
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.20bacfce.js"
   ]
 }
